@@ -1,0 +1,868 @@
+
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f3ed">
+<title>Медина & Данил | Wedding Day</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #f8f5f0;
+  --gold: #b49a72;
+  --brown: #675345;
+  --white: #fffdfa;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--brown);
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+button { font-family: inherit; }
+
+/* ENVELOPE SCREEN */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #eee7dc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transition: opacity 1s, visibility 1s;
+}
+
+#intro.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.envelope-wrapper {
+  text-align: center;
+  width: min(390px, 100%);
+}
+
+.envelope {
+  position: relative;
+  width: 290px;
+  height: 190px;
+  background: #fffdfa;
+  margin: 0 auto 35px;
+  box-shadow: 0 15px 40px #8a76552b;
+  cursor: pointer;
+  perspective: 800px;
+}
+
+.envelope:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, #fff 50%, #eee6db 50%);
+  clip-path: polygon(0 0, 100% 0, 50% 62%);
+  z-index: 3;
+  transform-origin: top;
+  transition: transform 1s;
+}
+
+.envelope:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #e8ddcd;
+  clip-path: polygon(0 100%, 0 0, 50% 60%, 100% 0, 100% 100%);
+  z-index: 2;
+}
+
+.envelope.open:before {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope-letter {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  height: 150px;
+  background: #fffdfa;
+  z-index: 2;
+  padding-top: 30px;
+  transition: transform 1s;
+}
+
+.envelope.open .envelope-letter {
+  transform: translateY(-100px);
+}
+
+.seal {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #bda47d;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 29px;
+  box-shadow: 0 3px 12px #92744d55;
+  transition: opacity .4s;
+}
+
+.envelope.open .seal { opacity: 0; }
+
+.envelope-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 34px;
+  color: var(--brown);
+}
+
+.open-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.tap {
+  margin-top: 18px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #967d5e;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: .4; }
+}
+
+/* GENERAL */
+
+.section {
+  padding: 75px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.inner {
+  max-width: 650px;
+  margin: auto;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 10px;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.script {
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+}
+
+.heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(34px, 8vw, 52px);
+  font-weight: 400;
+}
+
+.description {
+  font-size: 13px;
+  line-height: 2;
+  color: #806e5c;
+  font-weight: 300;
+}
+
+.gold-line {
+  width: 70px;
+  height: 1px;
+  background: var(--gold);
+  margin: 25px auto;
+}
+
+.flower {
+  color: #c1a981;
+  font-size: 25px;
+  margin: 20px 0;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 65px 20px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(#f8f5f0c9, #f8f5f0d9),
+    url('images/photo1.jpg') center/cover;
+}
+
+.hero:before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid #c7ad87;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-small {
+  font-size: 12px;
+  letter-spacing: 5px;
+  margin-bottom: 35px;
+  color: #987d5d;
+}
+
+.hero h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(55px, 13vw, 90px);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #695443;
+}
+
+.ampersand {
+  display: block;
+  font-size: 45px;
+  color: #b59a70;
+  margin: 0;
+}
+
+.hero-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 23px;
+  letter-spacing: 4px;
+  margin-top: 35px;
+}
+
+.scroll {
+  margin-top: 60px;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #a38a69;
+}
+
+/* INVITATION */
+
+.invitation {
+  background: #fffdfa;
+  background-image:
+    radial-gradient(#d7c5a333 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.invitation-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  line-height: 1.8;
+  color: #78624d;
+}
+
+/* PHOTO */
+
+.photo-frame {
+  padding: 12px;
+  border: 1px solid #c9b18d;
+  background: white;
+  margin: 35px auto;
+  max-width: 440px;
+  box-shadow: 0 12px 30px #75634a16;
+}
+
+.photo-frame img {
+  display: block;
+  width: 100%;
+  max-height: 550px;
+  object-fit: cover;
+}
+
+.caption {
+  font-family: 'Great Vibes', cursive;
+  font-size: 34px;
+  margin-top: 20px;
+}
+
+/* DATE */
+
+.date-section {
+  background: #eee7dc;
+}
+
+.date-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 92px;
+  line-height: 1;
+  color: #9b8060;
+}
+
+.date-month {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  letter-spacing: 5px;
+  margin-top: 10px;
+}
+
+.date-year {
+  letter-spacing: 6px;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.details {
+  display: grid;
+  gap: 25px;
+  margin-top: 45px;
+}
+
+.detail {
+  padding: 20px;
+  border-bottom: 1px solid #c9b798;
+}
+
+.detail-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.detail-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 23px;
+  margin-bottom: 7px;
+}
+
+.detail-text {
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* COUNTDOWN */
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 35px 0;
+}
+
+.time-box {
+  background: #fffdfa;
+  border: 1px solid #d4c2a5;
+  width: 72px;
+  padding: 13px 5px;
+}
+
+.time-box span {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+}
+
+.time-box small {
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+/* GALLERY */
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 35px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border: 5px solid white;
+  box-shadow: 0 4px 15px #78634a16;
+  transition: transform .4s;
+}
+
+.gallery img:hover {
+  transform: scale(1.03);
+}
+
+/* LOCATION */
+
+.location-section {
+  background: #fffdfa;
+}
+
+.map-button {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  background: #a58c6a;
+  padding: 16px 30px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-top: 25px;
+  transition: .3s;
+}
+
+.map-button:hover {
+  background: #79634a;
+}
+
+/* FINAL */
+
+.final-section {
+  min-height: 75vh;
+  background:
+    linear-gradient(#f8f5f0a6, #f8f5f0d9),
+    url('images/photo6.jpg') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.final-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  line-height: 1.8;
+}
+
+.final-names {
+  font-family: 'Great Vibes', cursive;
+  font-size: 65px;
+  margin: 30px 0;
+}
+
+.footer {
+  background: #e9e0d4;
+  text-align: center;
+  padding: 30px 15px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+}
+
+/* MUSIC BUTTON */
+
+.music-button {
+  position: fixed;
+  right: 18px;
+  bottom: 20px;
+  z-index: 100;
+  border: 1px solid #c2a981;
+  background: #fffdfaee;
+  color: #8d7455;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+}
+
+.music-button.playing {
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  to { transform: rotate(360deg); }
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .9s, transform .9s;
+}
+
+.fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media(max-width:380px) {
+  .gallery img { height: 175px; }
+  .time-box { width: 62px; }
+  .hero h1 { font-size: 55px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ENVELOPE -->
+
+<div id="intro">
+  <div class="envelope-wrapper">
+    <p class="eyebrow">YOU ARE INVITED</p>
+
+    <div class="envelope" id="envelope" onclick="openInvitation()">
+      <div class="envelope-letter">
+        <div class="envelope-name">Medina & Danil</div>
+      </div>
+      <div class="seal">M & D</div>
+    </div>
+
+    <div class="open-text">Wedding Invitation</div>
+    <p class="tap">✧ БАСЫП АЧЫҢЫЗ ✧</p>
+  </div>
+</div>
+
+<!-- MUSIC -->
+
+<audio id="music" loop preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-button" id="musicButton"
+onclick="toggleMusic()" aria-label="Музыканы башкаруу">♫</button>
+
+<!-- HERO -->
+
+<header class="hero">
+  <div class="hero-content">
+    <p class="hero-small">WEDDING DAY</p>
+
+    <h1>
+      Medina
+      <span class="ampersand">&</span>
+      Danil
+    </h1>
+
+    <div class="gold-line"></div>
+
+    <p class="hero-date">02 . 03 . 2027</p>
+
+    <p class="scroll">SCROLL TO DISCOVER ↓</p>
+  </div>
+</header>
+
+<!-- INVITATION -->
+
+<section class="section invitation fade">
+  <div class="inner">
+    <p class="eyebrow">WITH LOVE</p>
+
+    <h2 class="heading">Урматтуу коноктор!</h2>
+
+    <div class="flower">❀</div>
+
+    <p class="invitation-text">
+      Сиздерди жашообуздагы эң бактылуу жана
+      унутулгус күндөрдүн бири болгон
+      үйлөнүү үлпөт тоюбузга чакырабыз!
+      <br><br>
+      Бул өзгөчө күнү биздин кубанычыбызды
+      тең бөлүшүп, ак тилек, жакшы каалоолоруңуздар
+      менен ортобузда болушуңуздарды каалайбыз.
+    </p>
+
+    <div class="gold-line"></div>
+
+    <p class="script" style="font-size:38px">
+      Сиздерди күтөбүз!
+    </p>
+  </div>
+</section>
+
+<!-- COUPLE PHOTO -->
+
+<section class="section fade">
+  <div class="inner">
+    <p class="eyebrow">OUR LOVE STORY</p>
+    <h2 class="heading">Медина & Данил</h2>
+
+    <div class="photo-frame">
+      <img src="images/photo2.jpg"
+           alt="Медина жана Данил">
+    </div>
+
+    <p class="caption">Together forever</p>
+
+    <p class="description">
+      Эки жүрөк, бир тагдыр, бирге башталган жаңы жашоо...
+    </p>
+  </div>
+</section>
+
+<!-- DATE -->
+
+<section class="section date-section fade">
+  <div class="inner">
+    <p class="eyebrow">SAVE THE DATE</p>
+
+    <h2 class="heading">Той күнү</h2>
+
+    <div class="gold-line"></div>
+
+    <div class="date-number">02</div>
+    <div class="date-month">МАРТ</div>
+    <div class="date-year">2027 ЖЫЛ</div>
+
+    <div class="details">
+
+      <div class="detail">
+        <div class="detail-icon">♧</div>
+        <h3 class="detail-title">Күнү</h3>
+        <p class="detail-text">
+          Шейшемби, 2-март 2027-жыл
+        </p>
+      </div>
+
+      <div class="detail">
+        <div class="detail-icon">◷</div>
+        <h3 class="detail-title">Убактысы</h3>
+        <p class="detail-text">
+          Сиздерди белгиленген убакта күтөбүз
+        </p>
+      </div>
+
+      <div class="detail">
+        <div class="detail-icon">⌖</div>
+        <h3 class="detail-title">Дареги</h3>
+        <p class="detail-text">
+          Бишкек шаары,<br>
+          «Улуу Тоо» рестораны
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+
+<section class="section fade">
+  <div class="inner">
+    <p class="eyebrow">THE BIG DAY IS COMING</p>
+    <h2 class="heading">Тойго чейин</h2>
+
+    <div class="countdown">
+      <div class="time-box">
+        <span id="days">00</span>
+        <small>КҮН</small>
+      </div>
+
+      <div class="time-box">
+        <span id="hours">00</span>
+        <small>СААТ</small>
+      </div>
+
+      <div class="time-box">
+        <span id="minutes">00</span>
+        <small>МИНУТ</small>
+      </div>
+
+      <div class="time-box">
+        <span id="seconds">00</span>
+        <small>СЕКУНД</small>
+      </div>
+    </div>
+
+    <p class="script" style="font-size:35px">
+      Биздин кубанычыбызга күбө болуңуз!
+    </p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+
+<section class="section fade">
+  <div class="inner">
+    <p class="eyebrow">BEAUTIFUL MOMENTS</p>
+    <h2 class="heading">Биздин көз ирмемдер</h2>
+
+    <div class="gold-line"></div>
+
+    <div class="gallery">
+      <img src="images/photo1.jpg" alt="Сүрөт 1">
+      <img src="images/photo2.jpg" alt="Сүрөт 2">
+      <img src="images/photo3.jpg" alt="Сүрөт 3">
+      <img src="images/photo4.jpg" alt="Сүрөт 4">
+      <img src="images/photo5.jpg" alt="Сүрөт 5">
+      <img src="images/photo6.jpg" alt="Сүрөт 6">
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+
+<section class="section location-section fade">
+  <div class="inner">
+    <p class="eyebrow">LOCATION</p>
+    <h2 class="heading">Биздин дарек</h2>
+
+    <div class="flower">✧</div>
+
+    <p class="invitation-text">
+      Бишкек шаары<br>
+      «Улуу Тоо» рестораны
+    </p>
+
+    <a class="map-button"
+       href="https://www.google.com/maps/search/?api=1&query=Улуу+Тоо+ресторан+Бишкек"
+       target="_blank" rel="noopener">
+       КАРТАДАН КӨРҮҮ ↗
+    </a>
+  </div>
+</section>
+
+<!-- FINAL -->
+
+<section class="section final-section fade">
+  <div class="inner">
+    <p class="eyebrow">WITH BEST WISHES</p>
+
+    <p class="final-text">
+      Сиздерди чын жүрөктөн<br>
+      күтөбүз!
+    </p>
+
+    <div class="final-names">
+      Medina & Danil
+    </div>
+
+    <div class="gold-line"></div>
+
+    <p class="final-text">
+      Урматтоо менен,<br>
+      той ээлери Аида & Бакыт
+    </p>
+
+    <div class="flower">❀</div>
+
+    <p class="script" style="font-size:34px">
+      Келип, конок болуп кетиңиздер!
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  With Love ♡ Medina & Danil
+  <p style="font-size:12px;margin-top:10px">
+    02.03.2027
+  </p>
+</footer>
+
+<script>
+
+// OPEN ENVELOPE AND START MUSIC
+
+let isPlaying = false;
+
+function openInvitation() {
+  const envelope = document.getElementById('envelope');
+  const intro = document.getElementById('intro');
+  const music = document.getElementById('music');
+  const button = document.getElementById('musicButton');
+
+  envelope.classList.add('open');
+
+  music.play().then(() => {
+    isPlaying = true;
+    button.style.display = 'block';
+    button.classList.add('playing');
+  }).catch(() => {
+    button.style.display = 'block';
+  });
+
+  setTimeout(() => {
+    intro.classList.add('hidden');
+    document.body.style.overflowY = 'auto';
+  }, 1300);
+}
+
+// MUSIC CONTROL
+
+function toggleMusic() {
+  const music = document.getElementById('music');
+  const button = document.getElementById('musicButton');
+
+  if (music.paused) {
+    music.play().then(() => {
+      isPlaying = true;
+      button.classList.add('playing');
+    }).catch(() => {});
+  } else {
+    music.pause();
+    isPlaying = false;
+    button.classList.remove('playing');
+  }
+}
+
+// COUNTDOWN
+
+const weddingDate = new Date('2027-03-02T18:00:00+06:00').getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = weddingDate - now;
+
+  if (distance <= 0) {
+    ['days','hours','minutes','seconds'].forEach(id => {
+      document.getElementById(id).textContent = '00';
+    });
+    return;
+  }
+
+  document.getElementById('days').textContent =
+    Math.floor(distance / (1000 * 60 * 60 * 24));
+
+  document.getElementById('hours').textContent =
+    Math.floor((distance / (1000 * 60 * 60)) % 24);
+
+  document.getElementById('minutes').textContent =
+    Math.floor((distance / (1000 * 60)) % 60);
+
+  document.getElementById('seconds').textContent =
+    Math.floor((distance / 1000) % 60);
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// SCROLL ANIMATION
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade').forEach(section => {
+  observer.observe(section);
+});
+
+</script>
+
+</body>
+</html>
